@@ -80,6 +80,28 @@ public class MyArrayListTest {
     }
 
     @Test
+    public void indexOf() {
+        int expected = 1;
+        myArrayList.add(0, "What?");
+        myArrayList.add(1, "Now?");
+        myArrayList.add(2, "Seriously?");
+        myArrayList.add(3, "We're doing this.");
+        int actual = myArrayList.indexOf("Now?");
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void indexOfEmpty() {
+        int expected = -1;
+        myArrayList.add(0, "What?");
+        myArrayList.add(1, "Now?");
+        myArrayList.add(2, "Seriously?");
+        myArrayList.add(3, "We're doing this.");
+        int actual = myArrayList.indexOf("Green World");
+        assertEquals(expected, actual);
+    }
+
+    @Test
     public void isNotEmpty() throws Exception {
         boolean expected = false;
         myArrayList.add(0, "What?");
@@ -103,7 +125,21 @@ public class MyArrayListTest {
     }
 
     @Test
-    public void remove() throws Exception {
+    public void removeAtIndex() throws Exception {
+        String expected = "We're doing this.";
+        myArrayList.add(0, "What?");
+        myArrayList.add(1, "Now?");
+        myArrayList.add(2, "Seriously?");
+        myArrayList.add(3, "We're doing this.");
+        myArrayList.add(4, "Oh yeah!");
+        System.out.println(myArrayList.size());
+        String actual = myArrayList.remove(3);
+        System.out.println(myArrayList.size());
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    public void removeObject() throws Exception {
         myArrayList.add(0, "What?");
         myArrayList.add(1, "Now?");
         myArrayList.add(2, "Seriously?");

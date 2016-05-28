@@ -28,17 +28,17 @@ public class MyArrayList<E> {
         }
     }
 
-    public boolean add(E element) {
+    public boolean add(Object o) {
         ensureCapacityInternal(size + 1);
-        elementList[size++] = element;
+        elementList[size++] = o;
         return true;
     }
 
-    public void add(int index, E element) {
+    public void add(int index, Object o) {
         rangeCheckToAdd(index);
 
         ensureCapacityInternal(size + 1);
-        elementList[size++] = element;
+        elementList[size++] = o;
     }
 
     public void clear() {
@@ -48,8 +48,8 @@ public class MyArrayList<E> {
         size = 0;
     }
 
-    public boolean contains(E element) {
-        return indexOf(element) >= 0;
+    public boolean contains(Object o) {
+        return indexOf(o) >= 0;
     }
 
     private E elementList(int index) {
@@ -91,8 +91,8 @@ public class MyArrayList<E> {
         elementList = Arrays.copyOf(elementList, newCapacity);
     }
 
-    public int indexOf(E element) {
-        if (element == null) {
+    public int indexOf(Object o) {
+        if (o == null) {
             for (int i = 0; i < size; i++) {
                 if (elementList[i] == null) {
                     return i;
@@ -100,7 +100,7 @@ public class MyArrayList<E> {
             }
         } else {
             for (int i = 0; i < size; i++) {
-                if (element.equals(elementList[i])) {
+                if (o.equals(elementList[i])) {
                     return i;
                 }
             }
@@ -116,36 +116,6 @@ public class MyArrayList<E> {
         return "Index: "+index+", Size: "+size;
     }
 
-    public boolean remove(E element) {
-        if (element == null) {
-            for (int index = 0; index < size; index++) {
-                if (element.equals(elementList(index))) {
-                    fastRemove(index);
-                    return true;
-                }
-            }
-        } else {
-            for (int index = 0; index < size; index++) {
-                if (element.equals(elementList(index))) {
-                    fastRemove(index);
-                    return true;
-                }
-            }
-        }
-        return false;
-    }
-
-    public E set(int index, E element) {
-        rangeCheck(index);
-        E oldValue = elementList(index);
-        elementList[index] = element;
-        return oldValue;
-    }
-
-    public int size() {
-        return size;
-    }
-
     private void rangeCheck(int index) {
         if (index >= size) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
@@ -156,5 +126,43 @@ public class MyArrayList<E> {
         if(index > size || index < 0) {
             throw new IndexOutOfBoundsException(outOfBoundsMsg(index));
         }
+    }
+
+    public boolean remove(Object o) {
+        if (o == null) {
+            for (int index = 0; index < size; index++) {
+                if (o.equals(elementList(index))) {
+                    fastRemove(index);
+                    return true;
+                }
+            }
+        } else {
+            for (int index = 0; index < size; index++) {
+                if (o.equals(elementList(index))) {
+                    fastRemove(index);
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+
+    public E remove(int index) {
+        rangeCheck(index);
+        E oldValue = elementList(index);
+        fastRemove(index);
+        return oldValue;
+    }
+
+    public E set(int index, Object o) {
+        rangeCheck(index);
+        E oldValue = elementList(index);
+        elementList[index] = o;
+        return oldValue;
+    }
+
+    public int size() {
+        return size;
     }
 }
